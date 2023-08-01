@@ -4,6 +4,7 @@ from search import generate_link
 from discord import Embed
 from discord.ext import commands
 from dotenv import load_dotenv
+
 intents = discord.Intents.default()
 intents.members = True
 intents.message_content = True
@@ -16,6 +17,7 @@ async def on_ready():
     print("bot is running")
     await bot.change_presence(activity=discord.Game(name=",help"))
 
+
 @bot.command()
 async def movie(ctx, *, entry):
     newline = "\n"
@@ -25,8 +27,7 @@ async def movie(ctx, *, entry):
         if len(link_list) == 10:
             break
     embed = Embed(
-        colour=discord.Color.dark_gold(),
-        title=f"First 10 match for {entry}:"
+        colour=discord.Color.dark_gold(), title=f"First 10 match for {entry}:"
     )
     link_list.sort()
     embed.add_field(name="", value=f"{newline.join(link_list)}")
@@ -34,6 +35,6 @@ async def movie(ctx, *, entry):
     await ctx.send(embed=embed)
     link_list.clear()
 
+
 load_dotenv()
 bot.run(os.getenv("BOT_TOKEN"))
-

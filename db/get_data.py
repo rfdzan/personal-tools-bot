@@ -1,10 +1,13 @@
 import sqlite3
 from os import chdir
 from pathlib import Path
+
 chdir(Path(__file__).parent.parent)
+
 
 def db_connect():
     return sqlite3.connect("db/sqlite_db/tmdb.db")
+
 
 def query_db(search: str):
     search = search.replace(" ", "%")
