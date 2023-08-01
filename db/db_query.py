@@ -13,6 +13,7 @@ def db_connect():
 
 def create_table(conn: sqlite3.Connection):
     cursor = conn.cursor()
+    cursor.execute("PRAGMA encoding='UTF-8'")
     Q_CREATE_TABLE = """CREATE TABLE IF NOT EXISTS tmdb(
     id INTEGER PRIMARY KEY,
     title TEXT

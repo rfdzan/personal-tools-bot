@@ -1,5 +1,6 @@
 # created by virtualenv automatically
 .idea/
+__pycache__/
 db/sqlite_db/
 Lib/
 Scripts/

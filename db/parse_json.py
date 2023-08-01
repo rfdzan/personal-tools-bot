@@ -8,7 +8,7 @@ chdir(Path(__file__).parent.parent)
 
 
 def parse_file() -> Generator[str, None, None]:
-    with open("db/movie_ids_05_15_2023.json", errors="ignore") as file:
+    with open("db/movie_ids_05_15_2023.json", encoding="utf-8") as file:
         for line in file:
             if line is None:
                 break
