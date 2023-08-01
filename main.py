@@ -1,6 +1,7 @@
 import discord
 import os
 from bot.search import generate_link
+from bot.master_tools import master_query
 from discord import Embed
 from discord.ext import commands
 from dotenv import load_dotenv
@@ -9,7 +10,7 @@ intents = discord.Intents.default()
 intents.members = True
 intents.message_content = True
 
-bot = commands.Bot(command_prefix="!", intents=intents, help_command=None)
+bot = commands.Bot(command_prefix="test!", intents=intents, help_command=None)
 
 
 @bot.event
@@ -34,6 +35,22 @@ async def movie(ctx, *, entry):
 
     await ctx.send(embed=embed)
     link_list.clear()
+
+
+@bot.command()
+@commands.is_owner()
+async def query(ctx, *, query):
+    count = 0
+    query_result = master_query(query)
+    if isinstance(query_result, str):
+        await ctx.send("banned command.")
+    else:
+        for data in query_result:
+            count += 1
+            if count == 5:
+                count = 0
+                break
+            await ctx.send(data)
 
 
 load_dotenv()
