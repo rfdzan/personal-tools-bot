@@ -5,3 +5,4 @@ db/sqlite_db/
 Lib/
 Scripts/
 pyvenv.cfg
+.env

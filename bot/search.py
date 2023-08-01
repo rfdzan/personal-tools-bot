@@ -9,6 +9,6 @@ def generate_link(search: str):
     query = query_db(search=search.strip())
     for id, title in query:
         url = rf"https://vidsrc.me/embed/movie?tmdb={id}"
-        yield f"{title}: {url}"
+        yield title, url
 
 
