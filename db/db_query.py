@@ -8,18 +8,16 @@ chdir(Path(__file__).parent.parent)
 
 
 def db_connect():
-    return sqlite3.connect("db/sqlite_db/tmdb.db")
+    return sqlite3.connect("db/sqlite_db/tmdb3.db")
 
 
 def create_table(conn: sqlite3.Connection):
     cursor = conn.cursor()
     cursor.execute("PRAGMA encoding='UTF-8'")
-    Q_CREATE_TABLE = """CREATE TABLE IF NOT EXISTS tmdb(
-    id INTEGER PRIMARY KEY,
-    title TEXT
+    # Q_CREATE_TABLE = "CREATE TABLE IF NOT EXISTS tmdb(id INTEGER PRIMARY KEY,title TEXT)STRICT"
+    Q_CREATE_TABLE = (
+        "CREATE TABLE IF NOT EXISTS tmdb(id INTEGER PRIMARY KEY,title TEXT) STRICT"
     )
-    STRICT
-    """
     cursor.execute(Q_CREATE_TABLE)
 
 

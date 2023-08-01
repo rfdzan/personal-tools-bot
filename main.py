@@ -1,6 +1,6 @@
 import discord
 import os
-from search import generate_link
+from bot.search import generate_link
 from discord import Embed
 from discord.ext import commands
 from dotenv import load_dotenv
@@ -15,7 +15,7 @@ bot = commands.Bot(command_prefix="!", intents=intents, help_command=None)
 @bot.event
 async def on_ready():
     print("bot is running")
-    await bot.change_presence(activity=discord.Game(name=",help"))
+    await bot.change_presence(activity=discord.Game(name="!movie"))
 
 
 @bot.command()
