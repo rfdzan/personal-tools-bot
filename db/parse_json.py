@@ -2,7 +2,6 @@ import json
 from typing import Generator
 from os import chdir
 from pathlib import Path
-from tqdm import tqdm
 
 chdir(Path(__file__).parent.parent)
 
@@ -15,4 +14,5 @@ def parse_file() -> Generator[str, None, None]:
             text = json.loads(line)
             tmdb_id: int = text.get("id")
             tmdb_title: str = text.get("original_title")
-            yield tmdb_id, tmdb_title
+            tmdb_pop: int = int(text.get("popularity"))
+            yield tmdb_id, tmdb_title, tmdb_pop
