@@ -19,6 +19,16 @@ async def on_ready():
     await bot.change_presence(activity=discord.Game(name="!movie"))
 
 
+@bot.event
+async def on_message(msg):
+    if "twitter.com" in msg.content.lower() and not msg.author.bot:
+        await msg.delete()
+        await msg.channel.send(
+            f"{msg.author} sends:\n{msg.content.replace('twitter', 'vxtwitter')}"
+        )
+    await bot.process_commands(msg)
+
+
 @bot.command()
 async def movie(ctx, *, entry):
     newline = "\n"
