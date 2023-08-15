@@ -22,10 +22,16 @@ async def on_ready():
 
 @bot.event
 async def on_message(msg):
-    pattern = r"(\w+://)\w+(.com/\w+/.+)"
+    pattern = r"(\w+://)(\w+)(.com/\w+/.+)"
     check = re.match(pattern, msg.content)
     if check is not None and not msg.author.bot:
-        vx_twitter = re.sub(pattern, "\g<1>vxtwitter\g<2>", msg.content)
+        if check.group(2) == "vxtwitter":
+            await msg.channel.send(
+                "I can convert it to `vxtwitter` for you. Just paste the regular `twitter` link."
+            )
+            await bot.process_commands(msg)
+            return
+        vx_twitter = re.sub(pattern, "\g<1>vxtwitter\g<3>", msg.content)
         await msg.delete()
         await msg.channel.send(f"{msg.author} sends:\n{vx_twitter}")
     await bot.process_commands(msg)
