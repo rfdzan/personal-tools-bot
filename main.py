@@ -1,5 +1,6 @@
 import discord
 import os
+import re
 from bot.search import generate_link
 from bot.master_tools import master_query
 from discord import Embed
@@ -21,11 +22,12 @@ async def on_ready():
 
 @bot.event
 async def on_message(msg):
-    if "twitter.com" in msg.content.lower() and not msg.author.bot:
+    pattern = r"(\w+://)\w+(.com/\w+/.+)"
+    check = re.match(pattern, msg.content)
+    if check is not None and not msg.author.bot:
+        vx_twitter = re.sub(pattern, "\g<1>vxtwitter\g<2>", msg.content)
         await msg.delete()
-        await msg.channel.send(
-            f"{msg.author} sends:\n{msg.content.replace('twitter', 'vxtwitter')}"
-        )
+        await msg.channel.send(f"{msg.author} sends:\n{vx_twitter}")
     await bot.process_commands(msg)
 
 
