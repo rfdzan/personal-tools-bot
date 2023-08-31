@@ -1,6 +1,7 @@
 import discord
 import os
 import re
+from search.get_search_result import search_query
 from bot.search import generate_link
 from bot.master_tools import master_query
 from discord import Embed
@@ -11,12 +12,12 @@ intents = discord.Intents.default()
 intents.members = True
 intents.message_content = True
 
-bot = commands.Bot(command_prefix="test!", intents=intents, help_command=None)
+bot = commands.Bot(command_prefix="!", intents=intents, help_command=None)
 
 
 @bot.event
 async def on_ready():
-    print("bot is running")
+    print("testbot is running")
     await bot.change_presence(activity=discord.Game(name="!movie"))
 
 
@@ -63,6 +64,17 @@ async def movie(ctx, *, entry):
     await ctx.send(embed=embed)
     link_list.clear()
     send_list.clear()
+
+
+@bot.command()
+async def search(ctx, *entry):
+    footer_display = " ".join(entry)
+    search_term = "+".join(entry)
+    result = await search_query(search_term)
+    embed = Embed(colour=discord.Color.dark_gold())
+    embed.add_field(name="", value=f"```{result}```")
+    embed.set_footer(text=f"Result for: {footer_display}")
+    await ctx.send(embed=embed)
 
 
 @bot.command()
