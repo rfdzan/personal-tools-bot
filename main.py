@@ -1,6 +1,7 @@
 import discord
 import os
 import re
+from bot.tokopedia_search import main
 from search.get_search_result import search_query
 from bot.search import generate_link
 from bot.master_tools import master_query
@@ -92,6 +93,24 @@ async def query(ctx, *, query):
                 break
             await ctx.send(data)
 
+@bot.command()
+async def shop(ctx, *entry):
+    search = " ".join(entry)
+    results = await main(search)
+    embed = Embed(colour=discord.Color.dark_gold())
+    display = []
+    for idx, result in enumerate(results):
+        if idx == 7:
+            break
+        link = f"[{result.get('name')}]({result.get('product_url')})"
+        _sold = [str(result.get("sold")[0]), result.get("sold")[1]]
+        title = f"{result.get('price')}, {''.join(_sold)}, {result.get('product_rating')}"
+        display.append(f"{title}\n{link}")
+    print(len(display))
+    embed.add_field(name='', value="\n".join(display[0:3]))
+    embed.add_field(name='', value="\n".join(display[3:6]))
+    await ctx.send(embed=embed)
+    display.clear()
 
 load_dotenv()
 bot.run(os.getenv("BOT_TOKEN"))
