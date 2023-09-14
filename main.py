@@ -24,10 +24,11 @@ async def on_ready():
 
 @bot.event
 async def on_message(msg):
+    thanks_for_nothing_elon = ("x", "twitter")
     pattern = r"(\w+://)(\w+)(.com/\w+/.+)"
     check = re.match(pattern, msg.content)
     try:
-        if "twitter" not in check.group(2):
+        if check.group(2) not in thanks_for_nothing_elon:
             await bot.process_commands(msg)
             return
     except AttributeError:
@@ -93,6 +94,7 @@ async def query(ctx, *, query):
                 break
             await ctx.send(data)
 
+
 @bot.command()
 async def shop(ctx, *entry):
     search = " ".join(entry)
@@ -104,13 +106,16 @@ async def shop(ctx, *entry):
             break
         link = f"[{result.get('name')}]({result.get('product_url')})"
         _sold = [str(result.get("sold")[0]), result.get("sold")[1]]
-        title = f"{result.get('price')}, {''.join(_sold)}, {result.get('product_rating')}"
+        title = (
+            f"{result.get('price')}, {''.join(_sold)}, {result.get('product_rating')}"
+        )
         display.append(f"{title}\n{link}")
     print(len(display))
-    embed.add_field(name='', value="\n".join(display[0:3]))
-    embed.add_field(name='', value="\n".join(display[3:6]))
+    embed.add_field(name="", value="\n".join(display[0:3]))
+    embed.add_field(name="", value="\n".join(display[3:6]))
     await ctx.send(embed=embed)
     display.clear()
+
 
 load_dotenv()
 bot.run(os.getenv("BOT_TOKEN"))
