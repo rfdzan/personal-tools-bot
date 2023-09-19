@@ -1,17 +1,16 @@
 import json
+from _locations import Directories
 from typing import Generator
-from os import chdir, listdir
+from os import listdir
 from pathlib import Path
-
-chdir(Path(__file__).parent.parent)
 
 
 def parse_file() -> Generator[str, None, None]:
     entry = input("Filename: ")
-    for file in listdir("db"):
+    for file in listdir(Directories.DB_DIR):
         if entry in file:
             filename = file
-    with open(f"db/{filename}", encoding="utf-8") as file:
+    with open(Directories.DB_DIR.joinpath(filename), encoding="utf-8") as file:
         for line in file:
             if line is None:
                 break

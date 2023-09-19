@@ -1,14 +1,13 @@
 import sqlite3
 from parse_json import parse_file
+from _locations import Directories
 from os import chdir
 from pathlib import Path
 from tqdm import tqdm
 
-chdir(Path(__file__).parent.parent)
-
 
 def db_connect() -> sqlite3.Connection:
-    return sqlite3.connect("db/sqlite_db/tmdb.db")
+    return sqlite3.connect(Directories.TMDB_DB)
 
 
 def create_table_movie(conn: sqlite3.Connection) -> None:

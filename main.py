@@ -3,7 +3,7 @@ import os
 import re
 from bot.tokopedia_search import main
 from search.get_search_result import search_query
-from bot.search import generate_link
+from bot.tmdb_search import generate_link
 from bot.master_tools import master_query
 from discord import Embed
 from discord.ext import commands

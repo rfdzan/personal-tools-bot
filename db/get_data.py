@@ -1,13 +1,12 @@
 import sqlite3
+from _locations import Directories
 from typing import Generator
 from os import chdir
 from pathlib import Path
 
-chdir(Path(__file__).parent.parent)
-
 
 def db_connect() -> sqlite3.Connection:
-    return sqlite3.connect("db/sqlite_db/tmdb.db")
+    return sqlite3.connect(Directories.TMDB_DB)
 
 
 def query_db(search: str, _type: str) -> Generator[str, None, None]:
