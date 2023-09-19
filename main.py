@@ -52,7 +52,29 @@ async def on_message(msg):
 async def movie(ctx, *, entry):
     newline = "\n"
     link_list = []
-    for title, url, popularity in generate_link(entry):
+    _type = "movie"
+    for title, url, popularity in generate_link(entry, _type):
+        link_list.append((f"{title}:\n{url}", popularity))
+        if len(link_list) == 10:
+            break
+    embed = Embed(
+        colour=discord.Color.dark_gold(), title=f"First 10 match for {entry}:"
+    )
+    link_list.sort(key=lambda x: x[1], reverse=True)
+    send_list = [link[0] for link in link_list]
+    embed.add_field(name="", value=f"{newline.join(send_list)}")
+
+    await ctx.send(embed=embed)
+    link_list.clear()
+    send_list.clear()
+
+
+@bot.command()
+async def tv(ctx, *, entry):
+    newline = "\n"
+    link_list = []
+    _type = "tv"
+    for title, url, popularity in generate_link(entry, _type):
         link_list.append((f"{title}:\n{url}", popularity))
         if len(link_list) == 10:
             break
