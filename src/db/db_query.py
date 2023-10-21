@@ -1,7 +1,9 @@
 import sqlite3
+
 from parse_json import parse_file
-from _locations import Directories
 from tqdm import tqdm
+
+from src._locations import Directories
 
 
 def db_connect() -> sqlite3.Connection:
@@ -11,7 +13,6 @@ def db_connect() -> sqlite3.Connection:
 def create_table_movie(conn: sqlite3.Connection) -> None:
     cursor = conn.cursor()
     cursor.execute("PRAGMA encoding='UTF-8'")
-    # Q_CREATE_TABLE = "CREATE TABLE IF NOT EXISTS tmdb(id INTEGER PRIMARY KEY,title TEXT)STRICT"
     Q_CREATE_TABLE = (
         "CREATE TABLE IF NOT EXISTS tmdb(id INTEGER PRIMARY KEY,title TEXT)"
     )
@@ -21,7 +22,11 @@ def create_table_movie(conn: sqlite3.Connection) -> None:
 def create_table_tv(conn: sqlite3.Connection):
     cursor = conn.cursor()
     cursor.execute("PRAGMA encoding='UTF-8'")
-    Q_CREATE_TABLE = "CREATE TABLE IF NOT EXISTS tv(id INTEGER PRIMARY KEY, title TEXT, popularity REAL)"
+    Q_CREATE_TABLE = """CREATE TABLE IF NOT EXISTS tv(
+    id INTEGER PRIMARY KEY,
+    title TEXT,
+    popularity REAL)
+    """
 
     cursor.execute(Q_CREATE_TABLE)
 

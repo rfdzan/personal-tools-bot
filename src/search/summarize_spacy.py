@@ -1,8 +1,9 @@
-import spacy
 from heapq import nlargest
+
+import spacy
+from spacy.lang.en.stop_words import STOP_WORDS
 from spacy.language import Language
 from spacy.tokens.doc import Doc
-from spacy.lang.en.stop_words import STOP_WORDS
 
 stopword = list(STOP_WORDS)
 nlp: Language = spacy.load(str("en_core_web_sm"))

@@ -1,10 +1,11 @@
 # created by virtualenv automatically
 .idea/
 __pycache__/
-db/sqlite_db/
-db/compressed_files/
+src/db/sqlite_db/
+src/db/compressed_files/
 Lib/
 Scripts/
 pyvenv.cfg
 share/
+.pdm-python
 .env

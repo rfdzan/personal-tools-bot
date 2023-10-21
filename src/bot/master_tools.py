@@ -1,7 +1,7 @@
 import sqlite3
-from typing import Generator
 from os import chdir
 from pathlib import Path
+from typing import Generator
 
 chdir(Path(__file__).parent.parent)
 
