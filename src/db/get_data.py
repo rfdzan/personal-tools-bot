@@ -1,6 +1,7 @@
 import sqlite3
-from src._locations import Directories
 from typing import Generator
+
+from src._locations import Directories
 
 
 def db_connect() -> sqlite3.Connection:

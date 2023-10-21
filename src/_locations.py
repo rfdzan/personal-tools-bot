@@ -1,5 +1,5 @@
-from pathlib import Path, PurePath
 from dataclasses import dataclass
+from pathlib import PurePath
 
 
 @dataclass

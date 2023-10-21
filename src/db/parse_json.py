@@ -1,7 +1,8 @@
 import json
-from src._locations import Directories
-from typing import Generator
 from os import listdir
+from typing import Generator
+
+from src._locations import Directories
 
 
 def parse_file() -> Generator[str, None, None]:

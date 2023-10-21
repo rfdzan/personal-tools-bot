@@ -1,4 +1,5 @@
 from typing import Generator
+
 from db.get_data import query_db
 
 

@@ -1,13 +1,15 @@
-import discord
 import os
 import re
-from bot.tokopedia_search import main
-from search.get_search_result import search_query
-from bot.tmdb_search import generate_link
-from bot.master_tools import master_query
+
+import discord
 from discord import Embed
 from discord.ext import commands
 from dotenv import load_dotenv
+
+from bot.master_tools import master_query
+from bot.tmdb_search import generate_link
+from bot.tokopedia_search import main
+from search.get_search_result import search_query
 
 intents = discord.Intents.default()
 intents.members = True
@@ -37,7 +39,8 @@ async def on_message(msg):
     if check is not None and not msg.author.bot:
         if check.group(2) == "vxtwitter":
             await msg.channel.send(
-                "I can convert it to `vxtwitter` for you. Just paste the regular `twitter` link."
+                "I can convert it to `vxtwitter` for you. "
+                "Just paste the regular `twitter` link."
             )
             await bot.process_commands(msg)
             return
@@ -139,6 +142,6 @@ async def shop(ctx, *entry):
     display.clear()
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     load_dotenv()
     bot.run(os.getenv("BOT_TOKEN"))

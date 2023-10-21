@@ -1,10 +1,11 @@
-import asyncio
-import search.summarize_spacy as summarize_spacy
 from collections import defaultdict
 from os import listdir
-from search._locations import Directories
-from bs4 import BeautifulSoup
+
 from aiohttp import ClientSession
+from bs4 import BeautifulSoup
+
+import search.summarize_spacy as summarize_spacy
+from search._locations import Directories
 
 APP_DIR = Directories.APP_DIR
 MAIN_DIR = Directories.MAIN_DIR
