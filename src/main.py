@@ -139,5 +139,6 @@ async def shop(ctx, *entry):
     display.clear()
 
 
-load_dotenv()
-bot.run(os.getenv("BOT_TOKEN"))
+if __name__ == '__main__':
+    load_dotenv()
+    bot.run(os.getenv("BOT_TOKEN"))

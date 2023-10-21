@@ -1,5 +1,5 @@
 import sqlite3
-from _locations import Directories
+from src._locations import Directories
 from typing import Generator
 
 

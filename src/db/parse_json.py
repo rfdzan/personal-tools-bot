@@ -1,5 +1,5 @@
 import json
-from _locations import Directories
+from src._locations import Directories
 from typing import Generator
 from os import listdir
 
