@@ -1,8 +1,6 @@
 import sqlite3
 from parse_json import parse_file
 from _locations import Directories
-from os import chdir
-from pathlib import Path
 from tqdm import tqdm
 
 

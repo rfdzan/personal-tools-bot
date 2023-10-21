@@ -1,6 +1,5 @@
 import spacy
 from heapq import nlargest
-from search._locations import Directories
 from spacy.language import Language
 from spacy.tokens.doc import Doc
 from spacy.lang.en.stop_words import STOP_WORDS

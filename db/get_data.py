@@ -1,8 +1,6 @@
 import sqlite3
 from _locations import Directories
 from typing import Generator
-from os import chdir
-from pathlib import Path
 
 
 def db_connect() -> sqlite3.Connection:

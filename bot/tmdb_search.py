@@ -1,6 +1,4 @@
 from typing import Generator
-from os import chdir
-from pathlib import Path
 from db.get_data import query_db
 
 

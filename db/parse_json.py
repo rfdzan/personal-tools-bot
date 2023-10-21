@@ -2,7 +2,6 @@ import json
 from _locations import Directories
 from typing import Generator
 from os import listdir
-from pathlib import Path
 
 
 def parse_file() -> Generator[str, None, None]:

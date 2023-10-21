@@ -2,7 +2,9 @@
 .idea/
 __pycache__/
 db/sqlite_db/
+db/compressed_files/
 Lib/
 Scripts/
 pyvenv.cfg
+share/
 .env
