@@ -1,5 +1,4 @@
 import os
-import re
 
 import discord
 from discord import Embed
@@ -9,6 +8,7 @@ from dotenv import load_dotenv
 from bot.master_tools import master_query
 from bot.tmdb_search import generate_link
 from bot.tokopedia_search import main
+from msg_replace.twitter_replace import vxtwitter
 from search.get_search_result import search_query
 
 intents = discord.Intents.default()
@@ -26,29 +26,7 @@ async def on_ready():
 
 @bot.event
 async def on_message(msg):
-    thanks_for_nothing_elon = ("x", "twitter")
-    pattern = r"(\w+://)(\w+)(.com/\w+/.+)"
-    check = re.match(pattern, msg.content)
-    try:
-        if check.group(2) not in thanks_for_nothing_elon:
-            await bot.process_commands(msg)
-            return
-    except AttributeError:
-        await bot.process_commands(msg)
-        return
-    if check is not None and not msg.author.bot:
-        if check.group(2) == "vxtwitter":
-            await msg.channel.send(
-                "I can convert it to `vxtwitter` for you. "
-                "Just paste the regular `twitter` link."
-            )
-            await bot.process_commands(msg)
-            return
-        vx_twitter = re.sub(pattern, "\g<1>vxtwitter\g<3>", msg.content)
-        await msg.delete()
-        await msg.channel.send(f"{msg.author} sends:\n{vx_twitter}")
-        await bot.process_commands(msg)
-        return
+    await vxtwitter(bot, msg)
 
 
 @bot.command()
