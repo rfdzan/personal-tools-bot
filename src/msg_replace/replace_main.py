@@ -6,15 +6,10 @@ from .ytvid_replace import ymusicapp
 
 async def main(msg: Message, replace_yt: bool):
     to_replace = {
-        True: (await vxtwitter(msg), await ymusicapp(msg)),
-        False: (await vxtwitter(msg),),
+        True: (vxtwitter, ymusicapp),
+        False: (vxtwitter,),
     }
-    msg_list = to_replace.get(replace_yt)
-    print(msg_list)
-    check = [msg is None for msg in msg_list]
-    print(check)
+    replace_func_list = to_replace.get(replace_yt)
+    check = [await func(msg) is None for func in replace_func_list]
     if all(check):
         return None
-    for msg in msg_list:
-        if msg is not None:
-            return msg

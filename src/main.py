@@ -28,11 +28,8 @@ async def on_ready():
 async def on_message(msg: Message):
     if msg.author.bot:
         return
-    msg_replace = await replace_main(msg, replace_yt=False)
-    if msg_replace is None:
-        await bot.process_commands(msg)
-        return
-    await bot.process_commands(msg_replace)
+    await replace_main(msg, replace_yt=True)
+    await bot.process_commands(msg)
 
 
 @bot.command()
