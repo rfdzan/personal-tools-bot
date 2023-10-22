@@ -1,14 +1,14 @@
 import os
 
 import discord
-from discord import Embed
+from discord import Embed, Message
 from discord.ext import commands
 from dotenv import load_dotenv
 
 from bot.master_tools import master_query
 from bot.tmdb_search import generate_link
 from bot.tokopedia_search import main
-from msg_replace.twitter_replace import vxtwitter
+from msg_replace.replace_main import main as replace_main
 from search.get_search_result import search_query
 
 intents = discord.Intents.default()
@@ -25,8 +25,14 @@ async def on_ready():
 
 
 @bot.event
-async def on_message(msg):
-    await vxtwitter(bot, msg)
+async def on_message(msg: Message):
+    if msg.author.bot:
+        return
+    msg_replace = await replace_main(msg, replace_yt=False)
+    if msg_replace is None:
+        await bot.process_commands(msg)
+        return
+    await bot.process_commands(msg_replace)
 
 
 @bot.command()
