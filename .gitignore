@@ -3,6 +3,7 @@
 __pycache__/
 src/db/sqlite_db/
 src/db/compressed_files/
+.ruff_cache/
 Lib/
 Scripts/
 pyvenv.cfg
