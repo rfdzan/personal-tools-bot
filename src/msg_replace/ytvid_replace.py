@@ -4,7 +4,7 @@ from discord import Message
 
 
 async def check_matches_long(msg: Message):
-    pattern_long = r"(\w+://www\.)(youtube)(\.com/watch\Wv=\w+)"
+    pattern_long = r"(\w+://www\.)(youtube)(\.com/watch\Wv=\w+)(?:\W\w+=.+)"
     matches_long = re.match(pattern_long, msg.content, re.IGNORECASE)
     if matches_long is None:
         return matches_long
@@ -15,7 +15,7 @@ async def check_matches_long(msg: Message):
 
 
 async def check_matches_short(msg: Message):
-    pattern_short = r"(\w+://)(youtu.be/)(\w+)"
+    pattern_short = r"(\w+://)(youtu.be/)(\w+)(?:\W\w+=.+)"
     matches_short = re.match(pattern_short, msg.content, re.IGNORECASE)
     if matches_short is None:
         return matches_short
