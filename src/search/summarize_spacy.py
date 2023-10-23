@@ -31,7 +31,7 @@ async def remove_stopwords(docx: Doc) -> list[Token]:
     return filter_stopword
 
 
-async def get_word_frequency(filter_stopword: list) -> dict[str]:
+async def get_word_frequency(filter_stopword: list) -> dict[str, int]:
     word_frequency: dict[str, int] = {}
     for word in filter_stopword:
         text_token = word.text
@@ -42,13 +42,14 @@ async def get_word_frequency(filter_stopword: list) -> dict[str]:
     return word_frequency
 
 
-async def get_word_weights(word_frequency: dict[str, str]) -> dict[str, str]:
+async def get_word_weights(word_frequency: dict[str, int]) -> dict[str, float]:
     word_max_freq = max(word_frequency.values())
     weighted_words = {}
     for word in word_frequency.keys():
-        weighted_words[word] = (
-            word_frequency.get(word) / word_max_freq
-        )  # division elapsed time is pretty awful
+        if word_frequency.get(word) is not None:
+            weighted_words[word] = (
+                word_frequency.get(word) / word_max_freq
+            )  # division elapsed time is pretty awful
     return weighted_words
 
 
@@ -66,7 +67,7 @@ async def rank_score_sents(docx: Doc, weighted_words: dict[str, str]) -> dict[st
 
 
 async def nlargest_summary(score: dict, x_largest: int) -> list:
-    nlargest_summary = nlargest(x_largest, score, key=score.get)
+    nlargest_summary = nlargest(x_largest, score, key=score.__getitem__)
     return nlargest_summary
 
 
