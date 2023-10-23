@@ -8,7 +8,7 @@ chdir(Path(__file__).parent.parent)
 
 def master_query(entry: str) -> Generator[str, None, None] | str:
     banned_commands = ["delete", "update", "drop", "alter"]
-    checklist = []
+    checklist: list[bool] = []
     count = 0
     loop = True
     while loop:
@@ -30,3 +30,4 @@ def master_query(entry: str) -> Generator[str, None, None] | str:
         cursor.execute(f"{entry}")
         for data in cursor:
             yield data
+    return None

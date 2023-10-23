@@ -10,6 +10,8 @@ async def main(msg: Message, replace_yt: bool):
         False: (vxtwitter,),
     }
     replace_func_list = to_replace.get(replace_yt)
+    if replace_func_list is None:
+        return None
     check = [await func(msg) is None for func in replace_func_list]
     if all(check):
         return None

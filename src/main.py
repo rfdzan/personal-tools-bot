@@ -125,4 +125,7 @@ async def shop(ctx, *entry):
 
 if __name__ == "__main__":
     load_dotenv()
-    bot.run(os.getenv("BOT_TOKEN"))
+    token = os.getenv("BOT_TOKEN")
+    if token is None:
+        raise ValueError("Token not found.")
+    bot.run(token)

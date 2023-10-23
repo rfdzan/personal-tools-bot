@@ -5,13 +5,13 @@ from typing import Generator
 from src._locations import Directories
 
 
-def parse_file() -> Generator[str, None, None]:
+def parse_file() -> Generator[tuple[int, str, int], None, None]:
     entry = input("Filename: ")
     for file in listdir(Directories.DB_DIR):
         if entry in file:
             filename = file
-    with open(Directories.DB_DIR.joinpath(filename), encoding="utf-8") as file:
-        for line in file:
+    with open(Directories.DB_DIR.joinpath(filename), encoding="utf-8") as json_file:
+        for line in json_file:
             if line is None:
                 break
             text = json.loads(line)

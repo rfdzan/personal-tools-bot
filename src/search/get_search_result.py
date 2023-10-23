@@ -1,4 +1,5 @@
 from collections import defaultdict
+from collections.abc import Awaitable, Callable
 from os import listdir
 
 from aiohttp import ClientSession
@@ -20,12 +21,18 @@ async def make_request(URL: str):
     return result
 
 
-async def parse_html(URL: str) -> list[str]:
+async def parse_html(URL: str) -> list[bytes]:
     page_text = await make_request(URL)
     soup = BeautifulSoup(page_text, "lxml")
     body = soup.find("body", {"class": "body--html"})
+    if body is None:
+        return ["no body".encode("utf-8")]
     main_div = body.find("div", {"class": "serp__results"})
+    if main_div is None:
+        return ["no main_div".encode("utf-8")]
     inner_div = main_div.find("div", {"id": "links", "class": "results"})
+    if inner_div is None:
+        return ["no inner_div".encode("utf-8")]
     search_result = inner_div.find_all("div", {"class": True})
     found_text = []
     for result in search_result:
@@ -36,8 +43,10 @@ async def parse_html(URL: str) -> list[str]:
     return found_text
 
 
-async def sanitize_result(parser, URL: str) -> set[str]:
-    remove_dupe = defaultdict(int)
+async def sanitize_result(
+    parser: Callable[[str], Awaitable[list[bytes]]], URL: str
+) -> dict[bytes, int]:
+    remove_dupe: dict[bytes, int] = defaultdict(int)
     results = await parser(URL)
     for result in results:
         if result not in remove_dupe.keys():
@@ -45,7 +54,7 @@ async def sanitize_result(parser, URL: str) -> set[str]:
     return remove_dupe
 
 
-async def main(URL: str):
+async def main(URL: str) -> str:
     sanitized = await sanitize_result(parse_html, URL=URL)
     result = [desc.decode("utf-8") for desc in sanitized]
     return " ".join(result)

@@ -3,7 +3,7 @@ import re
 from discord import Message
 
 
-async def vxtwitter(msg: Message):
+async def vxtwitter(msg: Message) -> None | Message:
     thanks_for_nothing_elon = ("x", "twitter")
     pattern = r"(\w+://)(\w+)(.com/\w+/.+)"
     check = re.match(pattern, msg.content, re.IGNORECASE)

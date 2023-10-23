@@ -3,7 +3,7 @@ import re
 from discord import Message
 
 
-async def check_matches_long(msg: Message):
+async def check_matches_long(msg: Message) -> str:
     pattern_long = (
         r"(\w+://www\.)(youtube)(\.com/(?:watch|live)\W(?:v=)?[^\?]+)(?:\W\w+=.+)?"
     )
@@ -18,7 +18,7 @@ async def check_matches_long(msg: Message):
     return converted_link
 
 
-async def check_matches_short(msg: Message):
+async def check_matches_short(msg: Message) -> str:
     pattern_short = r"(\w+://)(youtu.be/)([^\?]+)(?:\W\w+=.+)?"
     matches_short = re.match(pattern_short, msg.content, re.IGNORECASE)
     if matches_short is None:
@@ -31,7 +31,7 @@ async def check_matches_short(msg: Message):
     return converted_link
 
 
-async def ymusicapp(msg: Message):
+async def ymusicapp(msg: Message) -> Message:
     result_long = await check_matches_long(msg)
     result_short = await check_matches_short(msg)
     if all((result_short is None, result_long is None)):

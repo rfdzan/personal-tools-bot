@@ -19,7 +19,7 @@ def create_table_movie(conn: sqlite3.Connection) -> None:
     cursor.execute(Q_CREATE_TABLE)
 
 
-def create_table_tv(conn: sqlite3.Connection):
+def create_table_tv(conn: sqlite3.Connection) -> None:
     cursor = conn.cursor()
     cursor.execute("PRAGMA encoding='UTF-8'")
     Q_CREATE_TABLE = """CREATE TABLE IF NOT EXISTS tv(
@@ -31,7 +31,7 @@ def create_table_tv(conn: sqlite3.Connection):
     cursor.execute(Q_CREATE_TABLE)
 
 
-def insert_into_tv(conn: sqlite3.Connection):
+def insert_into_tv(conn: sqlite3.Connection) -> None:
     cursor = conn.cursor()
     Q_INSERT_INTO_TV = """INSERT OR IGNORE INTO tv(
     id,
@@ -68,12 +68,12 @@ def insert_into_tmdb(conn: sqlite3.Connection) -> None:
     conn.close()
 
 
-def add_column_popularity_movie(conn: sqlite3.Connection):
+def add_column_popularity_movie(conn: sqlite3.Connection) -> None:
     cursor = conn.cursor()
     cursor.execute("ALTER TABLE tmdb ADD COLUMN popularity INTEGER")
 
 
-def update_column_popularity_movie(conn: sqlite3.Connection):
+def update_column_popularity_movie(conn: sqlite3.Connection) -> None:
     Q_UPDATE_POPULARITY = """UPDATE tmdb SET popularity=? WHERE id=?
     """
     with conn:

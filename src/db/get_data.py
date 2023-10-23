@@ -8,7 +8,7 @@ def db_connect() -> sqlite3.Connection:
     return sqlite3.connect(Directories.TMDB_DB)
 
 
-def query_db(search: str, _type: str) -> Generator[str, None, None]:
+def query_db(search: str, _type: str) -> Generator[tuple[str, str, float], None, None]:
     search = search.replace(" ", "%")
     conn = db_connect()
     with conn:

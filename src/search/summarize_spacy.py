@@ -3,6 +3,7 @@ from heapq import nlargest
 import spacy
 from spacy.lang.en.stop_words import STOP_WORDS
 from spacy.language import Language
+from spacy.tokens import Token
 from spacy.tokens.doc import Doc
 
 stopword = list(STOP_WORDS)
@@ -21,7 +22,7 @@ async def tokenize_sentence(docx: Doc) -> list[str]:
     return list_of_sentence
 
 
-async def remove_stopwords(docx: Doc) -> list[str]:
+async def remove_stopwords(docx: Doc) -> list[Token]:
     filter_stopword = []
     for word in docx:
         text_token = word.text
@@ -31,7 +32,7 @@ async def remove_stopwords(docx: Doc) -> list[str]:
 
 
 async def get_word_frequency(filter_stopword: list) -> dict[str]:
-    word_frequency = {}
+    word_frequency: dict[str, int] = {}
     for word in filter_stopword:
         text_token = word.text
         if text_token not in word_frequency.keys():
@@ -41,7 +42,7 @@ async def get_word_frequency(filter_stopword: list) -> dict[str]:
     return word_frequency
 
 
-async def get_word_weights(word_frequency: dict[str]) -> dict[str]:
+async def get_word_weights(word_frequency: dict[str, str]) -> dict[str, str]:
     word_max_freq = max(word_frequency.values())
     weighted_words = {}
     for word in word_frequency.keys():
@@ -51,8 +52,8 @@ async def get_word_weights(word_frequency: dict[str]) -> dict[str]:
     return weighted_words
 
 
-async def rank_score_sents(docx: Doc, weighted_words: dict[str]) -> dict[str]:
-    score = {}
+async def rank_score_sents(docx: Doc, weighted_words: dict[str, str]) -> dict[str, str]:
+    score: dict[str, str] = {}
     sents_list = await tokenize_sentence(docx)
     words_list = await tokenize_word(docx)
     for sent in sents_list:
