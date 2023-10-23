@@ -4,13 +4,17 @@ from discord import Message
 
 
 async def check_matches_long(msg: Message):
-    pattern_long = r"(\w+://www\.)(youtube)(\.com/watch\Wv=[^\?]+)(?:\W\w+=.+)?"
+    pattern_long = (
+        r"(\w+://www\.)(youtube)(\.com/(?:watch|live)\W(?:v=)?[^\?]+)(?:\W\w+=.+)?"
+    )
     matches_long = re.match(pattern_long, msg.content, re.IGNORECASE)
     if matches_long is None:
         return matches_long
     if matches_long.group(2) != "youtube":
         return None
     converted_link = re.sub(pattern_long, "\g<1>ymusicapp\g<3>", msg.content)
+    if "live/" in converted_link:
+        converted_link = converted_link.replace("live/", "watch?v=")
     return converted_link
 
 
