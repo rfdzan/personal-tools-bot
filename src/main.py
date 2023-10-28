@@ -1,4 +1,5 @@
 import os
+import re
 
 import discord
 from discord import Embed, Message
@@ -9,7 +10,8 @@ from bot.master_tools import master_query
 from bot.tmdb_search import generate_link
 from bot.tokopedia_search import main
 from msg_replace.replace_main import main as replace_main
-from search.get_search_result import search_query
+# from search.get_search_result import search_query
+from steam_search.search_game import handle_result as steam_result
 
 intents = discord.Intents.default()
 intents.members = True
@@ -74,15 +76,15 @@ async def tv(ctx, *, entry):
     send_list.clear()
 
 
-@bot.command()
-async def search(ctx, *entry):
-    footer_display = " ".join(entry)
-    search_term = "+".join(entry)
-    result = await search_query(search_term)
-    embed = Embed(colour=discord.Color.dark_gold())
-    embed.add_field(name="", value=f"```{result}```")
-    embed.set_footer(text=f"Result for: {footer_display}")
-    await ctx.send(embed=embed)
+# @bot.command()
+# async def search(ctx, *entry):
+#     footer_display = " ".join(entry)
+#     search_term = "+".join(entry)
+#     result = await search_query(search_term)
+#     embed = Embed(colour=discord.Color.dark_gold())
+#     embed.add_field(name="", value=f"```{result}```")
+#     embed.set_footer(text=f"Result for: {footer_display}")
+#     await ctx.send(embed=embed)
 
 
 @bot.command()
@@ -122,6 +124,23 @@ async def shop(ctx, *entry):
     await ctx.send(embed=embed)
     display.clear()
 
+@bot.command()
+async def steam(ctx, *entry):
+    newline = "\n"
+    search_term = " ".join(entry)
+    result = await steam_result(search_term)
+    if result is None:
+        return None
+    info = result[0]
+    send_info = [info[0], info[1], info[3]]
+    link = info[2]
+    price = result[1]
+    if isinstance(price, list):
+        price = newline.join(price)
+    embed = Embed(colour=discord.Color.dark_gold())
+    embed.add_field(name="", value=f"{newline.join(send_info)}{newline}{newline}{price}")
+    await ctx.send(embed=embed)
+    await ctx.send(re.sub(r"/\?snr=.+", "", link))
 
 if __name__ == "__main__":
     load_dotenv()
