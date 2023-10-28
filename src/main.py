@@ -10,7 +10,7 @@ from bot.master_tools import master_query
 from bot.tmdb_search import generate_link
 from bot.tokopedia_search import main
 from msg_replace.replace_main import main as replace_main
-# from search.get_search_result import search_query
+from search.get_search_result import search_query
 from steam_search.search_game import handle_result as steam_result
 
 intents = discord.Intents.default()
@@ -76,15 +76,15 @@ async def tv(ctx, *, entry):
     send_list.clear()
 
 
-# @bot.command()
-# async def search(ctx, *entry):
-#     footer_display = " ".join(entry)
-#     search_term = "+".join(entry)
-#     result = await search_query(search_term)
-#     embed = Embed(colour=discord.Color.dark_gold())
-#     embed.add_field(name="", value=f"```{result}```")
-#     embed.set_footer(text=f"Result for: {footer_display}")
-#     await ctx.send(embed=embed)
+@bot.command()
+async def search(ctx, *entry):
+    footer_display = " ".join(entry)
+    search_term = "+".join(entry)
+    result = await search_query(search_term)
+    embed = Embed(colour=discord.Color.dark_gold())
+    embed.add_field(name="", value=f"```{result}```")
+    embed.set_footer(text=f"Result for: {footer_display}")
+    await ctx.send(embed=embed)
 
 
 @bot.command()
