@@ -18,7 +18,7 @@ async def is_discounted(tag) -> dict[str, str]:
 
     return {
         "percent": discount_percent,
-        "price": original_price,
+        "price": f"~~{original_price}~~",
         "final_price": discounted_price,
     }
 
