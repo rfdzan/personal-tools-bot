@@ -136,7 +136,7 @@ async def steam(ctx, *entry):
     link = info[2]
     price = result[1]
     if isinstance(price, list):
-        price = newline.join(price)
+        price = newline.join([f"{price[1]} {price[0]}", price[2]])
     embed = Embed(colour=discord.Color.dark_gold())
     embed.add_field(name="", value=f"{newline.join(send_info)}{newline}{newline}{price}")
     await ctx.send(embed=embed)
