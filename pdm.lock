@@ -6,7 +6,17 @@ groups = ["default"]
 cross_platform = true
 static_urls = false
 lock_version = "4.3"
-content_hash = "sha256:9ece7d9990c2331168fb496bad2c0fa3d8a5c54d322bc7ae7a2ddaaa1b77f5d0"
+content_hash = "sha256:59d27d34b95f4484a88290308bb58a881a9273f9e5e7e20691560cd59c48308a"
+
+[[package]]
+name = "aiofiles"
+version = "23.2.1"
+requires_python = ">=3.7"
+summary = "File support for asyncio."
+files = [
+    {file = "aiofiles-23.2.1-py3-none-any.whl", hash = "sha256:19297512c647d4b27a2cf7c34caa7e405c0d60b5560618a29a9fe027b18b0107"},
+    {file = "aiofiles-23.2.1.tar.gz", hash = "sha256:84ec2218d8419404abcb9f0c02df3f34c6e0a68ed41072acfb1cef5cbc29051a"},
+]
 
 [[package]]
 name = "aiohttp"
@@ -255,6 +265,31 @@ files = [
     {file = "cymem-2.0.8-cp312-cp312-manylinux_2_17_x86_64.manylinux2014_x86_64.whl", hash = "sha256:7bf49e3ea2c441f7b7848d5c61b50803e8cbd49541a70bb41ad22fce76d87603"},
     {file = "cymem-2.0.8-cp312-cp312-win_amd64.whl", hash = "sha256:ecd12e3bacf3eed5486e4cd8ede3c12da66ee0e0a9d0ae046962bc2bb503acef"},
     {file = "cymem-2.0.8.tar.gz", hash = "sha256:8fb09d222e21dcf1c7e907dc85cf74501d4cea6c4ed4ac6c9e016f98fb59cbbf"},
+]
+
+[[package]]
+name = "discord"
+version = "2.3.2"
+summary = "A mirror package for discord.py. Please install that instead."
+dependencies = [
+    "discord-py>=2.3.2",
+]
+files = [
+    {file = "discord-2.3.2-py3-none-any.whl", hash = "sha256:d7959418799dd3b1e896685812d880169c193468b061b3431fa2a4664febd3da"},
+    {file = "discord-2.3.2.tar.gz", hash = "sha256:cc1ee2dbe6df218ca51519af355b97e87309f8230f58c7f34885feb8e8a76145"},
+]
+
+[[package]]
+name = "discord-py"
+version = "2.3.2"
+requires_python = ">=3.8.0"
+summary = "A Python wrapper for the Discord API"
+dependencies = [
+    "aiohttp<4,>=3.7.4",
+]
+files = [
+    {file = "discord.py-2.3.2-py3-none-any.whl", hash = "sha256:9da4679fc3cb10c64b388284700dc998663e0e57328283bbfcfc2525ec5960a6"},
+    {file = "discord.py-2.3.2.tar.gz", hash = "sha256:4560f70f2eddba7e83370ecebd237ac09fbb4980dc66507482b0c0e5b8f76b9c"},
 ]
 
 [[package]]
