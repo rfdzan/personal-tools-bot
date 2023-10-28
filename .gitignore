@@ -10,3 +10,4 @@ pyvenv.cfg
 share/
 .pdm-python
 .env
+*.json
